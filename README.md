@@ -4,7 +4,7 @@
 ## Overview
 This take home project is a social media feature for Syval that aims to enhance financial wellness and emotional awareness for Gen Z users. Built using SwiftUI and Swift
 
-![Create Post Screens](../syvalTakeHome/syvalTakeHome/screenshots/image.png)
+![Showcase](../syvalTakeHome/syvalTakeHome/screenshots/image.png)
 
 
 ## My design decisions
