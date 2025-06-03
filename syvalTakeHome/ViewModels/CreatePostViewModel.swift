@@ -145,8 +145,32 @@ class CreatePostViewModel: ObservableObject {
         }
     }
     
+    var onPostCreated: (() -> Void)?
+    
     func createPost() {
-        print("Creating post: \(postTitle), \(postText)")
+        guard let selectedTransaction = selectedTransaction,
+              let selectedHashtag = selectedHashtag,
+              let selectedFeeling = selectedFeeling else {
+            return
+        }
+        
+        let newPost = Post(
+            id: UUID().uuidString,
+            name: "George Garcia", // we can always update this later on. for now a static text to think that we are the current user
+            amount: selectedTransaction.price,
+            timestamp: "Just now",
+            transaction: selectedTransaction.name,
+            spendingStyle: selectedFeeling,
+            likes: 0,
+            comments: 0,
+            category: selectedHashtag,
+            title: postTitle.isEmpty ? nil : postTitle,
+            caption: postText.isEmpty ? nil : postText,
+            image: nil
+        )
+        
+        dataService.addPost(newPost)
+        onPostCreated?()
         resetForm()
     }
     

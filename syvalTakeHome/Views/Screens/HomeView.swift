@@ -70,7 +70,10 @@ struct HomeView: View {
         }
         .navigationBarHidden(true)
         .fullScreenCover(isPresented: $viewModel.isCreatePostVisible) {
-            CreatePostView(isPresented: $viewModel.isCreatePostVisible)
+            CreatePostView(isPresented: $viewModel.isCreatePostVisible,
+                onPostCreated: {
+                    viewModel.refreshPosts()
+                })
         }
     }
 }

@@ -9,6 +9,9 @@ struct CreatePostView: View {
     @Binding var isPresented: Bool
     @StateObject private var viewModel = CreatePostViewModel()
     
+    var onPostCreated: (() -> Void)?
+
+    
     var body: some View {
         NavigationView {
             ZStack {
@@ -72,7 +75,6 @@ struct CreatePostView: View {
                                         .frame(width: 48, height: 48)
                                 }
                                 
-                                // Category Button - Simplified version without dropdown
                                 Button(action: viewModel.toggleCategoryDropdown) {
                                     HStack {
                                         Text(viewModel.selectedCategory ?? "Category")
@@ -117,7 +119,6 @@ struct CreatePostView: View {
                     }
                 }
                 
-                // Category Dropdown Overlay - Positioned at screen level
                 if viewModel.showCategoryDropdown {
                     Color.clear
                         .contentShape(Rectangle())
@@ -220,11 +221,6 @@ struct CreatePostView: View {
                                 .background(Color.clear)
                             }
                             .buttonStyle(PlainButtonStyle())
-                            
-//                            if feeling.id != viewModel.feelings.last?.id {
-//                                Divider()
-//                                    .padding(.horizontal, 16)
-//                            }
                         }
                     }
                     .background(Color.white)
@@ -364,6 +360,9 @@ struct CreatePostView: View {
             }
         }
         .navigationBarHidden(true)
+        .onAppear {
+            viewModel.onPostCreated = onPostCreated
+        }
     }
 }
 

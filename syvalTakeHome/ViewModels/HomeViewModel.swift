@@ -27,4 +27,8 @@ class HomeViewModel: ObservableObject {
     func hideCreatePost() {
         isCreatePostVisible = false
     }
+    
+    func refreshPosts() {
+        loadPosts()
+    }
 }

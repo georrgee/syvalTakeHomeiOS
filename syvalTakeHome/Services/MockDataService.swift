@@ -69,7 +69,7 @@ class MockDataService {
         Transaction(id: "3", name: "Payrange", category: "Service", price: "$10.00", date: "May 30")
     ]
     
-    let postsData: [Post] = [
+    var postsData: [Post] = [
         Post(
             id: "1",
             name: "George Garcia",
@@ -113,4 +113,8 @@ class MockDataService {
             image: "https://via.placeholder.com/101"
         )
     ]
+    
+    func addPost(_ post: Post) {
+        postsData.insert(post, at: 0)
+    }
 }
