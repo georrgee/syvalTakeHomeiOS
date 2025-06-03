@@ -160,7 +160,7 @@ class CreatePostViewModel: ObservableObject {
             amount: selectedTransaction.price,
             timestamp: "Just now",
             transaction: selectedTransaction.name,
-            spendingStyle: selectedFeeling,
+            spendingStyle: "The Connector",
             likes: 0,
             comments: 0,
             category: selectedHashtag,
