@@ -1,0 +1,116 @@
+//  MockDataService.swift
+//  syvalTakeHome
+//  Created by George Garcia on 6/2/25.
+
+import Foundation
+
+class MockDataService {
+    
+    static let shared = MockDataService()
+    
+    private init() {}
+    
+    let mockFriends: [Friend] = [
+        Friend(id: "1", name: "Haruka"),
+        Friend(id: "2", name: "Rey Delgado"),
+        Friend(id: "3", name: "Danica"),
+        Friend(id: "4", name: "Matt Lee"),
+        Friend(id: "5", name: "Jeff")
+    ]
+    
+    let mockFeelings: [Feeling] = [
+        Feeling(id: "1", emoji: "😊", label: "Happy"),
+        Feeling(id: "2", emoji: "😐", label: "Neutral"),
+        Feeling(id: "3", emoji: "😞", label: "Sad")
+    ]
+    
+    let mockHashtags: [Hashtag] = [
+        Hashtag(id: "1", name: "#reflect", color: "E3D1A1"),
+        Hashtag(id: "2", name: "#flex", color: "C4B9FE"),
+        Hashtag(id: "3", name: "#reward", color: "51b06c"),
+        Hashtag(id: "4", name: "#uncertain", color: "c8c5c6"),
+        Hashtag(id: "5", name: "#necessary", color: "745ba5"),
+        Hashtag(id: "6", name: "#supportive", color: "ec7aab")
+    ]
+    
+    let categories: [Category] = [
+        Category(name: "Bank Fees", emoji: "💵"),
+        Category(name: "Clothing", emoji: "👕"),
+        Category(name: "Coffee Shop", emoji: "☕"),
+        Category(name: "Community", emoji: "🏘️"),
+        Category(name: "Credit Card", emoji: "💳"),
+        Category(name: "Education", emoji: "📚"),
+        Category(name: "Entertainment", emoji: "🎭"),
+        Category(name: "Food and Drink", emoji: "🍔"),
+        Category(name: "Gas Stations", emoji: "⛽"),
+        Category(name: "General Merchandise", emoji: "🛍️"),
+        Category(name: "Groceries", emoji: "🥦"),
+        Category(name: "Healthcare", emoji: "🏥"),
+        Category(name: "Home Improvement", emoji: "🔨"),
+        Category(name: "Loan", emoji: "🏦"),
+        Category(name: "Mortgage", emoji: "🏡"),
+        Category(name: "Payment", emoji: "💰"),
+        Category(name: "Personal Care", emoji: "💆"),
+        Category(name: "Recreation", emoji: "🏐"),
+        Category(name: "Rent", emoji: "💸"),
+        Category(name: "Restaurants", emoji: "🧑‍🍳"),
+        Category(name: "Service", emoji: "🔧"),
+        Category(name: "Shopping", emoji: "🛒"),
+        Category(name: "Subscription", emoji: "📲"),
+        Category(name: "Transfer", emoji: "🔁"),
+        Category(name: "Transportation", emoji: "🚗"),
+        Category(name: "Travel", emoji: "✈️"),
+        Category(name: "Utilities", emoji: "💡")
+    ]
+    
+    let mockTransactionsData: [Transaction] = [
+        Transaction(id: "1", name: "Apple", category: "Shops", price: "$9.99", date: "Jun 2"),
+        Transaction(id: "2", name: "Deposit George Garcia", category: "Transfer", price: "$100", date: "Jun 2"),
+        Transaction(id: "3", name: "Payrange", category: "Service", price: "$10.00", date: "May 30")
+    ]
+    
+    let postsData: [Post] = [
+        Post(
+            id: "1",
+            name: "George Garcia",
+            amount: "$100.00",
+            timestamp: "Just now",
+            transaction: "Deposit Transfer",
+            spendingStyle: "The Connector",
+            likes: 8,
+            comments: 12,
+            category: "#reflect",
+            title: "Birthday Present",
+            caption: "Little bro gave me a birthday present. I feel bad that he sent me money. He is also looking for a job. But I know that it's all love and that the bad things are only temporary.",
+            image: nil
+        ),
+        Post(
+            id: "2",
+            name: "Haruka",
+            amount: "$11.50",
+            timestamp: "3h",
+            transaction: "Saluhall Market Food & Drink",
+            spendingStyle: "The Indulger",
+            likes: 500,
+            comments: 526,
+            category: "#flex",
+            title: nil,
+            caption: "Feeling productive every day and I love it! Thought I should treat myself for all the hard work...",
+            image: "https://via.placeholder.com/100"
+        ),
+        Post(
+            id: "3",
+            name: "Danica",
+            amount: "$526.92",
+            timestamp: "5h",
+            transaction: "La Mar",
+            spendingStyle: "The Supporter",
+            likes: 42,
+            comments: 5,
+            category: "#flex",
+            title: nil,
+            caption: "Great dinner for George's birthday",
+            image: "https://via.placeholder.com/101"
+        )
+    ]
+}
