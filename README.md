@@ -1,6 +1,8 @@
 # Syval Take-Home Project: Social Media Post Feature
 ### by George Garcia
 
+![image](https://github.com/user-attachments/assets/112a21db-febc-41cc-9e37-c98ef2a49eab)
+
 ## Overview
 This take home project is a social media feature for Syval that aims to enhance financial wellness and emotional awareness for Gen Z users. Built using SwiftUI and Swift
 
