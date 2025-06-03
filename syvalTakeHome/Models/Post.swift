@@ -18,4 +18,11 @@ struct Post: Identifiable, Codable {
     let caption:       String?
     let image:         String?
     let taggedFriends: [Friend]?
+    let linkedGoal:    LinkedGoal?
+}
+
+struct LinkedGoal: Codable {
+    let goalId: String
+    let goalName: String
+    let progressImpact: Double
 }

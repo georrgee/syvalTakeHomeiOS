@@ -6,6 +6,37 @@ import SwiftUI
 
 struct PostView: View {
     
+    private func GoalProgressView(linkedGoal: LinkedGoal) -> some View {
+          HStack(spacing: 8) {
+              Spacer()
+              
+              HStack(spacing: 6) {
+                  Image(systemName: "target")
+                      .font(.system(size: 12))
+                  Text("+\(String(format: "%.1f", linkedGoal.progressImpact))% to \(linkedGoal.goalName)")
+                      .font(.system(size: 12))
+                      .lineLimit(1)
+                  
+                  ZStack(alignment: .leading) {
+                      Rectangle()
+                          .frame(width: 60, height: 6)
+                          .opacity(0.2)
+                          .foregroundColor(Color(hex: "5643F4"))
+                      
+                      Rectangle()
+                          .frame(width: min(CGFloat(linkedGoal.progressImpact) / 100.0 * 60, 60), height: 6)
+                          .foregroundColor(Color(hex: "5643F4"))
+                          .animation(.linear, value: linkedGoal.progressImpact)
+                  }
+                  .clipShape(RoundedRectangle(cornerRadius: 3))
+                  .frame(width: 60, height: 6)
+              }
+              .foregroundColor(Color(hex: "5643F4"))
+          }
+          .padding(.horizontal, 16)
+          .padding(.vertical, 8)
+      }
+    
     let post: Post
     @State private var isExpanded = false
     
@@ -55,6 +86,13 @@ struct PostView: View {
                 }
             }
             .padding(16)
+            
+            // Goal Progress
+            if let linkedGoal = post.linkedGoal {
+                Divider()
+                    .padding(.horizontal, 16)
+                GoalProgressView(linkedGoal: linkedGoal)
+            }
         }
         .background(getBackgroundColor(for: post.category))
         .clipShape(RoundedRectangle(cornerRadius: 0))

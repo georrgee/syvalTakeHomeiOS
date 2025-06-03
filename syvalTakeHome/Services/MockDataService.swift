@@ -72,6 +72,13 @@ class MockDataService {
         Transaction(id: "5", name: "VolleyWorld", category: "Subscription", price: "$20.00", date: "May 22"),
     ]
     
+    let mockGoals: [Goal] = [
+        Goal(id: "1", name: "Vacation", targetAmount: 2000.0, currentAmount: 500.0, color: "4ECDC4"),
+        Goal(id: "2", name: "Emergency Fund", targetAmount: 5000.0, currentAmount: 1000.0, color: "FF6B6B"),
+        Goal(id: "3", name: "New Laptop", targetAmount: 1500.0, currentAmount: 750.0, color: "FFD166"),
+        Goal(id: "4", name: "Home Down Payment", targetAmount: 20000.0, currentAmount: 5000.0, color: "06D6A0")
+    ]
+    
     var postsData: [Post] = [
         Post(
             id: "1",
@@ -86,7 +93,8 @@ class MockDataService {
             title: "Birthday Present",
             caption: "Little bro gave me a birthday present. I feel bad that he sent me money. He is also looking for a job. But I know that it's all love and that the bad things are only temporary.",
             image: nil,
-            taggedFriends: []
+            taggedFriends: [],
+            linkedGoal: LinkedGoal(goalId: "2", goalName: "Emergency Fund", progressImpact: 10.0)
         ),
         
         Post(
@@ -102,7 +110,8 @@ class MockDataService {
             title: nil,
             caption: "Feeling productive every day and I love it! Thought I should treat myself for all the hard work...",
             image: "https://via.placeholder.com/100",
-            taggedFriends: [Friend(id: "6", name: "George")]
+            taggedFriends: [Friend(id: "6", name: "George")],
+            linkedGoal: LinkedGoal(goalId: "1", goalName: "Savings", progressImpact: 200.0)
         ),
         Post(
             id: "3",
@@ -117,7 +126,9 @@ class MockDataService {
             title: nil,
             caption: "Great dinner for George's birthday",
             image: "https://via.placeholder.com/101",
-            taggedFriends: [Friend(id: "2", name: "Rey Delgado"), Friend(id: "6", name: "George")]
+            taggedFriends: [Friend(id: "2", name: "Rey Delgado"), Friend(id: "6", name: "George")],
+            linkedGoal: LinkedGoal(goalId: "3", goalName: "Budgeting", progressImpact: 20.0)
+
         )
     ]
     

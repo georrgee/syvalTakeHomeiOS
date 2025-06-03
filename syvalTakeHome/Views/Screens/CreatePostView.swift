@@ -87,9 +87,79 @@ struct ActionButtonsView: View {
             // Feeling Button
             FeelingButtonView(viewModel: viewModel)
             
+            // Goal Button
+            GoalButtonView(viewModel: viewModel)
+            
             Spacer()
         }
         .padding(.horizontal)
+    }
+}
+
+struct GoalDropdownView: View {
+    @ObservedObject var viewModel: CreatePostViewModel
+    
+    var body: some View {
+        VStack(spacing: 0) {
+            Text("Link to Financial Goal")
+                .font(.system(size: 14, weight: .semibold))
+                .foregroundColor(.primary)
+                .padding(10)
+                .frame(maxWidth: .infinity)
+                .background(Color(UIColor.secondarySystemBackground))
+            
+            ScrollView {
+                LazyVStack(spacing: 0) {
+                    ForEach(viewModel.goals) { goal in
+                        GoalItemView(goal: goal, viewModel: viewModel)
+                    }
+                }
+            }
+            .frame(maxHeight: 200)
+        }
+        .background(Color.white)
+        .clipShape(RoundedRectangle(cornerRadius: 12))
+        .shadow(color: Color.black.opacity(0.15), radius: 12, x: 0, y: 4)
+        .overlay(
+            RoundedRectangle(cornerRadius: 12)
+                .stroke(Color.gray.opacity(0.2), lineWidth: 1)
+        )
+        .frame(width: 250)
+        .position(x: UIScreen.main.bounds.width * 0.6, y: UIScreen.main.bounds.height * 0.4)
+    }
+}
+
+struct GoalItemView: View {
+    let goal: Goal
+    @ObservedObject var viewModel: CreatePostViewModel
+    
+    var body: some View {
+        Button(action: {
+            withAnimation(.easeInOut(duration: 0.2)) {
+                viewModel.selectGoal(goal)
+            }
+        }) {
+            HStack {
+                Circle()
+                    .fill(Color(hex: goal.color))
+                    .frame(width: 12, height: 12)
+                
+                Text(goal.name)
+                    .font(.system(size: 15))
+                    .foregroundColor(.primary)
+                
+                Spacer()
+                
+                // Show progress
+                Text("\(Int(goal.progressPercentage))%")
+                    .font(.system(size: 12))
+                    .foregroundColor(.gray)
+            }
+            .padding(.vertical, 12)
+            .padding(.horizontal, 16)
+            .background(viewModel.selectedGoal?.id == goal.id ? Color.gray.opacity(0.1) : Color.clear)
+        }
+        .buttonStyle(PlainButtonStyle())
     }
 }
 
@@ -419,10 +489,21 @@ struct CreatePostView: View {
                         ))
                         .zIndex(1001)
                 }
+                
+                if viewModel.showGoalDropdown {
+                    DropdownBackdropView { viewModel.toggleGoalDropdown() }
+                    GoalDropdownView(viewModel: viewModel)
+                        .transition(.asymmetric(
+                            insertion: .scale(scale: 0.95, anchor: .top).combined(with: .opacity),
+                            removal: .scale(scale: 0.95, anchor: .top).combined(with: .opacity)
+                        ))
+                        .zIndex(1001)
+                }
             }
             .animation(.spring(response: 0.3, dampingFraction: 0.7), value: viewModel.showCategoryDropdown)
             .animation(.spring(response: 0.3, dampingFraction: 0.7), value: viewModel.showFeelingDropdown)
             .animation(.spring(response: 0.3, dampingFraction: 0.7), value: viewModel.showFriendsDropdown)
+            .animation(.spring(response: 0.3, dampingFraction: 0.7), value: viewModel.showGoalDropdown)
             .onTapGesture {
                 viewModel.closeAllDropdowns()
             }

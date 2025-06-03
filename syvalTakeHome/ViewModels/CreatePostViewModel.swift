@@ -14,13 +14,20 @@ class CreatePostViewModel: ObservableObject {
     @Published var showFriendsDropdown     = false
     @Published var friendSearchText        = ""
     @Published var showFeelingDropdown     = false
+    @Published var showGoalDropdown        = false
     
     @Published var selectedTransaction: Transaction?
     @Published var selectedHashtag:     String?
     @Published var selectedCategory:    String?
     @Published var selectedFeeling:     String?
+    @Published var selectedGoal:        Goal?
+    @Published var goalProgressImpact:  Double = 0.0
     
     private let dataService = MockDataService.shared
+    
+    var goals: [Goal] {
+        dataService.mockGoals
+    }
     
     var friends: [Friend] {
         dataService.mockFriends
@@ -117,11 +124,33 @@ class CreatePostViewModel: ObservableObject {
         showFriendsDropdown.toggle()
         friendSearchText = ""
     }
-
+    
+    func toggleGoalDropdown() {
+        showCategoryDropdown = false
+        showFeelingDropdown = false
+        showFriendsDropdown = false
+        friendSearchText = ""
+        
+        showGoalDropdown.toggle()
+    }
+    
+    func selectGoal(_ goal: Goal) {
+        selectedGoal = selectedGoal?.id == goal.id ? nil : goal
+        showGoalDropdown = false
+        
+        if let selectedGoal = selectedGoal, let selectedTransaction = selectedTransaction {
+            let amountString = selectedTransaction.price.replacingOccurrences(of: "$", with: "")
+            if let amount = Double(amountString) {
+                goalProgressImpact = (amount / selectedGoal.targetAmount) * 100
+            }
+        }
+    }
+    
     func closeAllDropdowns() {
         showCategoryDropdown = false
         showFeelingDropdown = false
         showFriendsDropdown = false
+        showGoalDropdown = false
         friendSearchText = ""
     }
     
@@ -154,6 +183,15 @@ class CreatePostViewModel: ObservableObject {
             return
         }
         
+        var linkedGoal: LinkedGoal? = nil
+        if let goal = selectedGoal {
+            linkedGoal = LinkedGoal(
+                goalId: goal.id,
+                goalName: goal.name,
+                progressImpact: goalProgressImpact
+            )
+        }
+        
         let newPost = Post(
             id: UUID().uuidString,
             name: "George Garcia", // we can always update this later on. for now a static text to think that we are the current user
@@ -167,7 +205,8 @@ class CreatePostViewModel: ObservableObject {
             title: postTitle.isEmpty ? nil : postTitle,
             caption: postText.isEmpty ? nil : postText,
             image: nil,
-            taggedFriends: taggedFriends.isEmpty ? nil : taggedFriends
+            taggedFriends: taggedFriends.isEmpty ? nil : taggedFriends,
+            linkedGoal: linkedGoal
         )
         
         dataService.addPost(newPost)
@@ -187,5 +226,8 @@ class CreatePostViewModel: ObservableObject {
         friendSearchText     = ""
         selectedFeeling      = nil
         showFeelingDropdown  = false
+        selectedGoal         = nil
+        showGoalDropdown     = false
+        goalProgressImpact   = 0.0
     }
 }
