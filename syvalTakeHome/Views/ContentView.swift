@@ -6,13 +6,26 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        TabView {
+            HomeView()
+                .tabItem {
+                    Image(systemName: "house.fill")
+                    Text("Home")
+                }
+            
+            InsightsView()
+                .tabItem {
+                    Image(systemName: "lightbulb")
+                    Text("Insights")
+                }
+            
+            ProfileView()
+                .tabItem {
+                    Image(systemName: "person.circle")
+                    Text("Profile")
+                }
         }
-        .padding()
+        .accentColor(Color(hex: "5643F4"))
     }
 }
 
