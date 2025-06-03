@@ -33,7 +33,7 @@ class MockDataService {
         Hashtag(id: "6", name: "#supportive", color: "ec7aab")
     ]
     
-    let categories: [Category] = [
+    let mockCategoriesData: [Category] = [
         Category(name: "Bank Fees", emoji: "💵"),
         Category(name: "Clothing", emoji: "👕"),
         Category(name: "Coffee Shop", emoji: "☕"),

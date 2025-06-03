@@ -145,7 +145,7 @@ struct PostView: View {
         }
         .background(getBackgroundColor(for: post.category))
         .clipShape(RoundedRectangle(cornerRadius: 0))
-        .padding(.horizontal, 16)
+        .padding(.horizontal, 0)
     }
     
     private func getProfileInitials(_ name: String) -> String {

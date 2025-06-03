@@ -62,8 +62,8 @@ struct HomeView: View {
                                 .clipShape(Circle())
                                 .shadow(radius: 8)
                         }
-                        .padding(.trailing)
-                        .padding(.bottom, 100)
+                        .padding(.trailing, 30)
+                        .padding(.bottom, 40)
                     }
                 }
             }

@@ -35,7 +35,7 @@ class CreatePostViewModel: ObservableObject {
     }
     
     var categories: [Category] {
-        dataService.categories
+        dataService.mockCategoriesData
     }
     
     var transactions: [Transaction] {
@@ -43,9 +43,17 @@ class CreatePostViewModel: ObservableObject {
     }
     
     var filteredFriends: [Friend] {
-        friends.filter { friend in
-            friend.name.lowercased().contains(friendSearchText.lowercased()) &&
+        
+        let availableFriends = friends.filter { friend in
             !taggedFriends.contains { $0.id == friend.id }
+        }
+        
+        if friendSearchText.isEmpty {
+            return availableFriends
+        } else {
+            return availableFriends.filter { friend in
+                friend.name.lowercased().contains(friendSearchText.lowercased())
+            }
         }
     }
     
@@ -75,12 +83,6 @@ class CreatePostViewModel: ObservableObject {
         showCategoryDropdown = false
     }
     
-    func toggleCategoryDropdown() {
-        if selectedTransaction != nil {
-            showCategoryDropdown.toggle()
-        }
-    }
-    
     func selectHashtag(_ hashtag: String) {
         selectedHashtag = selectedHashtag == hashtag ? nil : hashtag
     }
@@ -90,8 +92,37 @@ class CreatePostViewModel: ObservableObject {
         showFeelingDropdown = false
     }
     
+    func toggleCategoryDropdown() {
+        if selectedTransaction != nil {
+            showFeelingDropdown = false
+            showFriendsDropdown = false
+            friendSearchText    = ""
+
+            showCategoryDropdown.toggle()
+        }
+    }
+
     func toggleFeelingDropdown() {
+        showCategoryDropdown = false
+        showFriendsDropdown = false
+        friendSearchText = ""
+
         showFeelingDropdown.toggle()
+    }
+
+    func toggleFriendsDropdown() {
+        showCategoryDropdown = false
+        showFeelingDropdown = false
+
+        showFriendsDropdown.toggle()
+        friendSearchText = ""
+    }
+
+    func closeAllDropdowns() {
+        showCategoryDropdown = false
+        showFeelingDropdown = false
+        showFriendsDropdown = false
+        friendSearchText = ""
     }
     
     func tagFriend(_ friend: Friend) {
@@ -112,11 +143,6 @@ class CreatePostViewModel: ObservableObject {
             let mention = "@\(friendToRemove.name)"
             postText = postText.replacingOccurrences(of: mention, with: "").trimmingCharacters(in: .whitespaces)
         }
-    }
-    
-    func toggleFriendsDropdown() {
-        showFriendsDropdown.toggle()
-        friendSearchText = ""
     }
     
     func createPost() {
