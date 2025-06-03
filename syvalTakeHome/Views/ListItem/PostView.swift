@@ -136,13 +136,15 @@ struct PostView: View {
     
     private func CaptionView(caption: String, isExpanded: Binding<Bool>) -> some View {
         VStack(alignment: .leading, spacing: 4) {
-            Text(isExpanded.wrappedValue ? caption : getTruncatedCaption(caption))
+            Text(caption)
                 .font(.system(size: 14))
                 .foregroundColor(.primary)
+                .lineLimit(3)
             
-            if caption.contains("\n") {
-                Button(action: { isExpanded.wrappedValue.toggle() }) {
-                    Text(isExpanded.wrappedValue ? "Read Less" : "Read More")
+            if caption.count > 100 || caption.contains("\n") {
+                HStack {
+                    Spacer()
+                    Text("Read More")
                         .font(.system(size: 14, weight: .bold))
                         .foregroundColor(Color(hex: "6A5ACD"))
                 }
