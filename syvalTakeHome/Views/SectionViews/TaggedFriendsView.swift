@@ -4,6 +4,30 @@
 
 import SwiftUI
 
+struct FriendTagView: View {
+    let friend: Friend
+    let onRemove: () -> Void
+    
+    var body: some View {
+        HStack(spacing: 6) {
+            Text("@\(friend.name)")
+                .font(.system(size: 14))
+                .foregroundColor(Color(hex: "5643F4"))
+            
+            Button(action: onRemove) {
+                Image(systemName: "xmark")
+                    .font(.system(size: 14))
+                    .foregroundColor(.gray)
+            }
+            .buttonStyle(PlainButtonStyle())
+        }
+        .padding(.horizontal, 12)
+        .padding(.vertical, 6)
+        .background(Color.gray.opacity(0.1))
+        .clipShape(RoundedRectangle(cornerRadius: 16))
+    }
+}
+
 struct TaggedFriendsView: View {
     
     @ObservedObject var viewModel: CreatePostViewModel
@@ -18,22 +42,10 @@ struct TaggedFriendsView: View {
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 8) {
                     ForEach(viewModel.taggedFriends) { friend in
-                        HStack(spacing: 6) {
-                            Text("@\(friend.name)")
-                                .font(.system(size: 14))
-                                .foregroundColor(Color(hex: "5643F4"))
-                            
-                            Button(action: { viewModel.removeFriend(friend.id) }) {
-                                Image(systemName: "xmark")
-                                    .font(.system(size: 14))
-                                    .foregroundColor(.gray)
-                            }
-                            .buttonStyle(PlainButtonStyle())
-                        }
-                        .padding(.horizontal, 12)
-                        .padding(.vertical, 6)
-                        .background(Color.gray.opacity(0.1))
-                        .clipShape(RoundedRectangle(cornerRadius: 16))
+                        FriendTagView(
+                            friend: friend,
+                            onRemove: { viewModel.removeFriend(friend.id) }
+                        )
                     }
                 }
                 .padding(.horizontal, 20)

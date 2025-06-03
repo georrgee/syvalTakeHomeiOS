@@ -17,4 +17,5 @@ struct Post: Identifiable, Codable {
     let title:         String?
     let caption:       String?
     let image:         String?
+    let taggedFriends: [Friend]?
 }

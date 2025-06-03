@@ -18,8 +18,15 @@ struct TransactionSectionView: View {
             VStack(spacing: 6) {
                 ForEach(viewModel.transactions) { transaction in
                     Button(action: { viewModel.selectTransaction(transaction) }) {
+
+                        let isSelected = viewModel.selectedTransaction?.id == transaction.id
+                        let backgroundColor = isSelected ? Color(hex: "f0f0ff") : Color(UIColor.systemBackground)
+                        let borderColor = isSelected ? Color(hex: "5643F4") : Color.gray.opacity(0.3)
+                        
+                        // Transaction content
                         HStack {
                             VStack(alignment: .leading, spacing: 4) {
+                                // Transaction header
                                 HStack {
                                     Text(transaction.name)
                                         .font(.system(size: 16, weight: .semibold))
@@ -32,6 +39,7 @@ struct TransactionSectionView: View {
                                         .foregroundColor(Color(hex: "5643F4"))
                                 }
                                 
+                                // Transaction details
                                 HStack {
                                     Text(transaction.category)
                                         .font(.system(size: 14))
@@ -46,17 +54,10 @@ struct TransactionSectionView: View {
                             }
                         }
                         .padding(16)
-                        .background(
-                            viewModel.selectedTransaction?.id == transaction.id ?
-                            Color(hex: "f0f0ff") : Color(UIColor.systemBackground)
-                        )
+                        .background(backgroundColor)
                         .overlay(
                             RoundedRectangle(cornerRadius: 12)
-                                .stroke(
-                                    viewModel.selectedTransaction?.id == transaction.id ?
-                                    Color(hex: "5643F4") : Color.gray.opacity(0.3),
-                                    lineWidth: 1
-                                )
+                                .stroke(borderColor, lineWidth: 1)
                         )
                         .clipShape(RoundedRectangle(cornerRadius: 12))
                     }

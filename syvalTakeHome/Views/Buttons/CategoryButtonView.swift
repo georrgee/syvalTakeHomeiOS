@@ -9,21 +9,26 @@ struct CategoryButtonView: View {
     @ObservedObject var viewModel: CreatePostViewModel
     
     var body: some View {
-        Button(action: viewModel.toggleCategoryDropdown) {
+        let isSelected = viewModel.selectedCategory != nil
+        let textColor = isSelected ? Color.white : Color(hex: "5643F4")
+        let backgroundColor = isSelected ? Color(hex: "5643F4") : Color.clear
+        let iconName = viewModel.showCategoryDropdown ? "chevron.up" : "chevron.down"
+        
+        return Button(action: viewModel.toggleCategoryDropdown) {
             HStack {
                 Text(viewModel.selectedCategory ?? "Category")
-                    .foregroundColor(viewModel.selectedCategory != nil ? .white : Color(hex: "5643F4"))
+                    .foregroundColor(textColor)
                     .font(.system(size: 14, weight: .medium))
                     .lineLimit(1)
                     .truncationMode(.tail)
-                Image(systemName: viewModel.showCategoryDropdown ? "chevron.up" : "chevron.down")
-                    .foregroundColor(viewModel.selectedCategory != nil ? .white : Color(hex: "5643F4"))
+                Image(systemName: iconName)
+                    .foregroundColor(textColor)
                     .font(.system(size: 12))
             }
             .padding(.horizontal, 12)
             .padding(.vertical, 10)
             .frame(minWidth: 80, maxWidth: 140)
-            .background(viewModel.selectedCategory != nil ? Color(hex: "5643F4") : Color.clear)
+            .background(backgroundColor)
             .clipShape(RoundedRectangle(cornerRadius: 20))
         }
         .disabled(viewModel.selectedTransaction == nil)

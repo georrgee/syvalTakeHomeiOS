@@ -166,7 +166,8 @@ class CreatePostViewModel: ObservableObject {
             category: selectedHashtag,
             title: postTitle.isEmpty ? nil : postTitle,
             caption: postText.isEmpty ? nil : postText,
-            image: nil
+            image: nil,
+            taggedFriends: taggedFriends.isEmpty ? nil : taggedFriends
         )
         
         dataService.addPost(newPost)

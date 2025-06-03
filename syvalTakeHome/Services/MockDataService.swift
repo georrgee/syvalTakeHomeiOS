@@ -15,7 +15,8 @@ class MockDataService {
         Friend(id: "2", name: "Rey Delgado"),
         Friend(id: "3", name: "Danica"),
         Friend(id: "4", name: "Matt Lee"),
-        Friend(id: "5", name: "Jeff")
+        Friend(id: "5", name: "Jeff"),
+        Friend(id: "6", name: "George Garcia")
     ]
     
     let mockFeelings: [Feeling] = [
@@ -25,8 +26,8 @@ class MockDataService {
     ]
     
     let mockHashtags: [Hashtag] = [
-        Hashtag(id: "1", name: "#reflect", color: "E3D1A1"),
-        Hashtag(id: "2", name: "#flex", color: "C4B9FE"),
+        Hashtag(id: "1", name: "#reflect", color: "FEFBEC"),
+        Hashtag(id: "2", name: "#flex", color: "F0EDFE"),
         Hashtag(id: "3", name: "#reward", color: "51b06c"),
         Hashtag(id: "4", name: "#uncertain", color: "c8c5c6"),
         Hashtag(id: "5", name: "#necessary", color: "745ba5"),
@@ -66,7 +67,9 @@ class MockDataService {
     let mockTransactionsData: [Transaction] = [
         Transaction(id: "1", name: "Apple", category: "Shops", price: "$9.99", date: "Jun 2"),
         Transaction(id: "2", name: "Deposit George Garcia", category: "Transfer", price: "$100", date: "Jun 2"),
-        Transaction(id: "3", name: "Payrange", category: "Service", price: "$10.00", date: "May 30")
+        Transaction(id: "3", name: "Payrange", category: "Service", price: "$10.00", date: "May 30"),
+        Transaction(id: "4", name: "Safeway", category: "Groceries", price: "$22.00", date: "May 22"),
+        Transaction(id: "5", name: "VolleyWorld", category: "Subscription", price: "$20.00", date: "May 22"),
     ]
     
     var postsData: [Post] = [
@@ -82,8 +85,10 @@ class MockDataService {
             category: "#reflect",
             title: "Birthday Present",
             caption: "Little bro gave me a birthday present. I feel bad that he sent me money. He is also looking for a job. But I know that it's all love and that the bad things are only temporary.",
-            image: nil
+            image: nil,
+            taggedFriends: []
         ),
+        
         Post(
             id: "2",
             name: "Haruka",
@@ -96,7 +101,8 @@ class MockDataService {
             category: "#flex",
             title: nil,
             caption: "Feeling productive every day and I love it! Thought I should treat myself for all the hard work...",
-            image: "https://via.placeholder.com/100"
+            image: "https://via.placeholder.com/100",
+            taggedFriends: [Friend(id: "6", name: "George")]
         ),
         Post(
             id: "3",
@@ -110,7 +116,8 @@ class MockDataService {
             category: "#flex",
             title: nil,
             caption: "Great dinner for George's birthday",
-            image: "https://via.placeholder.com/101"
+            image: "https://via.placeholder.com/101",
+            taggedFriends: [Friend(id: "2", name: "Rey Delgado"), Friend(id: "6", name: "George")]
         )
     ]
     

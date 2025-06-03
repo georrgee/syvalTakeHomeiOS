@@ -1,9 +1,6 @@
-//
 //  syvalTakeHomeApp.swift
 //  syvalTakeHome
-//
-//  Created by George Garcia on 6/2/25.
-//
+//  Created by George Garcia on 6/2/25
 
 import SwiftUI
 
