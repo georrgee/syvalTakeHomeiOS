@@ -26,8 +26,8 @@ class MockDataService {
     ]
     
     let mockHashtags: [Hashtag] = [
-        Hashtag(id: "1", name: "#reflect", color: "FEFBEC"),
-        Hashtag(id: "2", name: "#flex", color: "F0EDFE"),
+        Hashtag(id: "1", name: "#reflect", color: "FFEDB5"),
+        Hashtag(id: "2", name: "#flex", color: "C4B8FE"),
         Hashtag(id: "3", name: "#reward", color: "51b06c"),
         Hashtag(id: "4", name: "#uncertain", color: "c8c5c6"),
         Hashtag(id: "5", name: "#necessary", color: "745ba5"),

@@ -211,14 +211,13 @@ struct PostView: View {
     }
     
     private func getBackgroundColor(for category: String?) -> Color {
-        switch category {
-        case "#reflect":
-            return Color(hex: "E3D1A1")
-        case "#flex":
-            return Color(hex: "C4B9FE")
-        default:
-            return Color.clear
+        guard let category = category else { return Color.clear }
+        
+        if let hashtag = MockDataService.shared.mockHashtags.first(where: { $0.name == category }) {
+            return Color(hex: hashtag.color)
         }
+        
+        return Color.clear
     }
 }
 

@@ -19,7 +19,7 @@ struct HashtagSectionView: View {
 
                             let isSelected = viewModel.selectedHashtag == hashtag.name
                             let textColor = isSelected ? Color.white : Color.gray
-                            let backgroundColor = isSelected ? Color(hashtag.color) : Color.gray.opacity(0.1)
+                            let backgroundColor = isSelected ? Color(hex: hashtag.color) : Color.gray.opacity(0.1)
                             
                             Text(hashtag.name)
                                 .font(.system(size: 14, weight: .medium))
