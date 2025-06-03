@@ -102,7 +102,7 @@ struct GoalDropdownView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            Text("Link to Financial Goal")
+            Text("Choose a goal")
                 .font(.system(size: 14, weight: .semibold))
                 .foregroundColor(.primary)
                 .padding(10)
