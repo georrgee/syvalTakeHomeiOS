@@ -76,7 +76,7 @@ struct ActionButtonsView: View {
                 Image(systemName: "photo")
                     .font(.title2)
                     .foregroundColor(Color(hex: "5643F4"))
-                    .frame(width: 48, height: 48)
+                    .frame(width: 30, height: 30)
             }
             
             CategoryButtonView(viewModel: viewModel)
@@ -95,6 +95,7 @@ struct ActionButtonsView: View {
         .padding(.horizontal)
     }
 }
+
 
 struct GoalDropdownView: View {
     @ObservedObject var viewModel: CreatePostViewModel
@@ -428,7 +429,52 @@ struct MainContentView: View {
             ScrollView {
                 VStack(alignment: .leading, spacing: 16) {
                     InputFieldsView(viewModel: viewModel)
-                    ActionButtonsView(viewModel: viewModel)
+                    
+                    // Modified action buttons without goal
+                    HStack(alignment: .center, spacing: 16) {
+                        // Picture Button
+                        Button(action: {}) {
+                            Image(systemName: "photo")
+                                .font(.title2)
+                                .foregroundColor(Color(hex: "5643F4"))
+                                .frame(width: 48, height: 48)
+                        }
+                        
+                        CategoryButtonView(viewModel: viewModel)
+                        
+                        // Friends Button
+                        FriendsButtonView(viewModel: viewModel)
+                        
+                        // Feeling Button
+                        FeelingButtonView(viewModel: viewModel)
+                        
+                        Spacer()
+                    }
+                    .padding(.horizontal)
+                    
+                    // New dedicated goal section
+                    if viewModel.selectedGoal == nil {
+                        Button(action: viewModel.toggleGoalDropdown) {
+                            HStack {
+                                Image(systemName: "target")
+                                    .font(.system(size: 16))
+                                Text("Personal goals")
+                                    .font(.system(size: 15, weight: .medium))
+                                Spacer()
+                                Image(systemName: "chevron.right")
+                                    .font(.system(size: 14))
+                            }
+                            .foregroundColor(Color(hex: "5643F4"))
+                            .padding()
+                            .background(Color.gray.opacity(0.05))
+                            .cornerRadius(12)
+                        }
+                        .padding(.horizontal)
+                    } else {
+                        // Show selected goal with more details
+                        GoalSelectionView(viewModel: viewModel)
+                            .padding(.horizontal)
+                    }
                     
                     // Tagged Friends
                     if !viewModel.taggedFriends.isEmpty {
@@ -445,6 +491,86 @@ struct MainContentView: View {
         }
     }
 }
+
+struct GoalSelectionView: View {
+    @ObservedObject var viewModel: CreatePostViewModel
+    
+    var body: some View {
+        if let goal = viewModel.selectedGoal {
+            HStack(spacing: 12) {
+                Circle()
+                    .fill(Color(hex: goal.color))
+                    .frame(width: 24, height: 24)
+                
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(goal.name)
+                        .font(.system(size: 16, weight: .medium))
+                    
+                    // Progress bar
+                    GeometryReader { geometry in
+                        ZStack(alignment: .leading) {
+                            Rectangle()
+                                .fill(Color.gray.opacity(0.2))
+                                .frame(height: 6)
+                                .cornerRadius(3)
+                            
+                            Rectangle()
+                                .fill(Color(hex: goal.color))
+                                .frame(width: geometry.size.width * goal.progressPercentage / 100, height: 6)
+                                .cornerRadius(3)
+                        }
+                    }
+                    .frame(height: 6)
+                    
+                    Text("\(Int(goal.progressPercentage))% complete")
+                        .font(.system(size: 12))
+                        .foregroundColor(.gray)
+                }
+                
+                Spacer()
+                
+                Button(action: {
+                    viewModel.selectedGoal = nil
+                }) {
+                    Image(systemName: "xmark.circle.fill")
+                        .foregroundColor(.gray)
+                }
+            }
+            .padding()
+            .background(Color.gray.opacity(0.05))
+            .cornerRadius(12)
+        }
+    }
+}
+
+//struct MainContentView: View {
+//    @Binding var isPresented: Bool
+//    @ObservedObject var viewModel: CreatePostViewModel
+//    
+//    var body: some View {
+//        VStack(spacing: 0) {
+//            HeaderView(isPresented: $isPresented, viewModel: viewModel)
+//            
+//            ScrollView {
+//                VStack(alignment: .leading, spacing: 16) {
+//                    InputFieldsView(viewModel: viewModel)
+//                    ActionButtonsView(viewModel: viewModel)
+//                    
+//                    // Tagged Friends
+//                    if !viewModel.taggedFriends.isEmpty {
+//                        TaggedFriendsView(viewModel: viewModel)
+//                    }
+//                    
+//                    // Hashtags
+//                    HashtagSectionView(viewModel: viewModel)
+//                    
+//                    // Transactions
+//                    TransactionSectionView(viewModel: viewModel)
+//                }
+//            }
+//        }
+//    }
+//}
 
 // MARK: - Main View
 
